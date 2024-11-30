@@ -1,0 +1,6 @@
+pip install flask==3.0.0
+pip install werkzeug==3.0.1
+pip install SQLAlchemy==2.0.23
+pip install flask-sqlalchemy==3.1.1
+pip install APScheduler==3.10.4
+pip install pytz
