@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Edit Task</h1>
+<form method="POST">
+    <div class="mb-3">
+        <label class="form-label">Task Name</label>
+        <input type="text" name="name" class="form-control" value="{{ task.name }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">End Date</label>
+        <input type="date" name="end_date" class="form-control" value="{{ task.end_date.strftime('%Y-%m-%d') }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Reminder Start Date</label>
+        <input type="date" name="reminder_start_date" class="form-control" value="{{ task.reminder_start_date.strftime('%Y-%m-%d') }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email Content</label>
+        <textarea name="email_content" class="form-control" rows="5" required>{{ task.email_content }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Recipients</label>
+        <div class="form-check">
+            {% for user in users %}
+            <div>
+                <input type="checkbox" name="recipients" value="{{ user.id }}" class="form-check-input" id="user{{ user.id }}"
+                       {% if user.id in task_recipients %}checked{% endif %}>
+                <label class="form-check-label" for="user{{ user.id }}">{{ user.name }} ({{ user.email }})</label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Task</button>
+    <a href="{{ url_for('homepage') }}" class="btn btn-secondary">Back</a>
+</form>
+{% endblock %}
